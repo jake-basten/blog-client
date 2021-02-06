@@ -7,6 +7,11 @@ const StyledBlog = styled.div`
   width: 80vw;
   display: inline-block;
   padding: 32px 0;
+  max-width: 880px;
+
+  @media only screen and (max-width: 600px) {
+    width: 90vw;
+  }
 
   .blog-title {
     font-size: 32px
@@ -31,14 +36,12 @@ const Blog = () => {
   return (
     <StyledBlog>
       <div className={'blog-title'}>
-        This is a Placeholder Title so I can Style this Shit
+        This is a Placeholder Title
       </div>
       <div className={'blog-image'}>
         <img src={twoDice} />
       </div>
-      <div className={'blog-content'}>
-        <BlogContent />
-      </div>
+      <BlogContent />
     </StyledBlog>
   );
 }
