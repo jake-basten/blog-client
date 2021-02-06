@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 const StyledApp = styled.div`
   text-align: center;
+  width: 100%;
 `;
 
 const App = () => {
