@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
-import twoDice from '../static/images/two_dice.jpeg';
 import BlogContent from './BlogConent';
 
 const StyledBlog = styled.div`
@@ -33,15 +32,26 @@ const StyledBlog = styled.div`
 `;
 
 const Blog = () => {
+  const [blogResponse, setBlogResponse] = useState('');
+
+  useEffect(() => {
+    fetch('https://s3xzxssyzd.execute-api.us-east-1.amazonaws.com/Prod/blog/blog1')
+      .then(response => response.json())
+      .then(data => {
+        setBlogResponse(data);
+      })
+
+  }, [])
+
   return (
     <StyledBlog>
       <div className={'blog-title'}>
         This is a Placeholder Title
       </div>
       <div className={'blog-image'}>
-        <img src={twoDice} />
+        <img src={blogResponse.imagePath} />
       </div>
-      <BlogContent />
+      <BlogContent fileContents={blogResponse.fileContents}/>
     </StyledBlog>
   );
 }
