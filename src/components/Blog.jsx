@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import BlogContent from './BlogConent';
 
@@ -33,15 +34,15 @@ const StyledBlog = styled.div`
 
 const Blog = () => {
   const [blogResponse, setBlogResponse] = useState('');
+  const { blogId } = useParams();
 
   useEffect(() => {
-    fetch('https://s3xzxssyzd.execute-api.us-east-1.amazonaws.com/Prod/blog/blog1')
+    fetch(`https://s3xzxssyzd.execute-api.us-east-1.amazonaws.com/Prod/blog/${blogId}`)
       .then(response => response.json())
       .then(data => {
         setBlogResponse(data);
       })
-
-  }, [])
+  }, [blogId])
 
   return (
     <StyledBlog>
@@ -51,7 +52,7 @@ const Blog = () => {
       <div className={'blog-image'}>
         <img src={blogResponse.imagePath} />
       </div>
-      <BlogContent fileContents={blogResponse.fileContents}/>
+      <BlogContent fileContents={blogResponse.fileContents} />
     </StyledBlog>
   );
 }
