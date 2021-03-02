@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, {useState, useEffect, FC} from 'react';
+import {useParams} from 'react-router-dom';
 import styled from 'styled-components';
 import BlogContent from './BlogConent';
 
@@ -32,10 +32,19 @@ const StyledBlog = styled.div`
   }
 `;
 
-const Blog = () => {
-  const [blogResponse, setBlogResponse] = useState('');
-  const { blogId } = useParams();
+type ParamTypes = {
+  blogId: string;
+}
 
+type BlogResponse = {
+  imagePath?: string;
+  fileContents?: string;
+}
+
+const Blog: FC = () => {
+  const [blogResponse, setBlogResponse] = useState<BlogResponse>({});
+  const {blogId} = useParams<ParamTypes>();
+  
   useEffect(() => {
     fetch(`https://s3xzxssyzd.execute-api.us-east-1.amazonaws.com/Prod/blog/${blogId}`)
       .then(response => response.json())
@@ -43,16 +52,16 @@ const Blog = () => {
         setBlogResponse(data);
       })
   }, [blogId])
-
+  
   return (
     <StyledBlog>
       <div className={'blog-title'}>
         This is a Placeholder Title
       </div>
       <div className={'blog-image'}>
-        <img src={blogResponse.imagePath} />
+        <img src={blogResponse.imagePath} alt={blogId}/>
       </div>
-      <BlogContent fileContents={blogResponse.fileContents} />
+      <BlogContent fileContents={blogResponse.fileContents}/>
     </StyledBlog>
   );
 }
