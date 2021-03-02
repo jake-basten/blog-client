@@ -2,3 +2,4 @@
 /build
 .DS_Store
 .idea/
+react-app-env.d.ts
