@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC} from 'react';
 import styled from 'styled-components';
 import {colors} from '../colors';
 
@@ -23,7 +23,7 @@ const StyledHeader = styled.div`
   }
 `;
 
-const Header = () => {
+const Header: FC = () => {
   return (
     <StyledHeader>
       <div className={'blog-title'}>
