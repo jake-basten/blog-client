@@ -64,6 +64,8 @@ workflows:
           requires:
             - install
       - deploy:
+          context:
+            - BLOG_PROD
           requires:
             - build
 
