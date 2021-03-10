@@ -53,7 +53,7 @@ jobs:
           <<: *dependencies
       - run:
           name: Deploy to S3
-          command: aws s3 cpy ~/blog-client/.dist s3://jbasten-blog-website --recursive
+          command: aws s3 cp ~/blog-client/build s3://jbasten-blog-website --recursive
 
 workflows:
   version: 2
