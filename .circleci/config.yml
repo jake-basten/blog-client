@@ -40,7 +40,7 @@ jobs:
           command: npm run build
       - persist_to_workspace:
           root: ~/blog-client
-          paths: "\~/.dist
+          paths: ~/.dist
 
   deploy:
     <<: *container_config
