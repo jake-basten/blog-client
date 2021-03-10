@@ -59,7 +59,7 @@ workflows:
   version: 2
   install-build-deploy:
     jobs:
-      - install:
+      - install
       - build:
           -requires:
             - install
