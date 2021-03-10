@@ -1,0 +1,69 @@
+version: 2
+
+container_config: &container_config
+  working_directory: ~/blog-client
+  docker:
+    - image: node:15.3.0
+
+dependencies: &dependencies
+  name: Install Dependencies
+  command: pip install awscli --upgrade
+
+jobs:
+  install:
+    <<: *container_config
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install Packages
+          command: npm install
+          environemnt:
+            NDOE_ENV: prod
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - persist_to_workspace:
+          root: ~/blog-client
+          paths: .
+
+  build:
+    <<: *container_config
+    steps:
+      - attach_workspace:
+          at: ~/blog-client
+      - run:
+          name: Build App
+          command: npm run build
+      - persist_to_workspace:
+          root: ~/blog-client
+          paths: "\~/.dist
+
+  deploy:
+    <<: *container_config
+    docker:
+      - image: cimg/python:3.7
+    steps:
+      - attach_workspace:
+          at: ~/blog-client
+      - run:
+          <<: *dependencies
+      - run:
+          name: Deploy to S3
+          command: aws s3 cpy ~/blog-client/.dist s3://jbasten-blog-website --recursive
+
+workflows:
+  version: 2
+  install-build-deploy:
+    jobs:
+      - install:
+      - build:
+          -requires:
+            - install
+      - deploy:
+          -requires:
+            - build
+
