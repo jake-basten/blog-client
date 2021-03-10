@@ -56,7 +56,7 @@ const Blog: FC = () => {
   return (
     <StyledBlog>
       <div className={'blog-title'}>
-        This is a Placeholder Title
+        Title Will Go Here
       </div>
       <div className={'blog-image'}>
         <img src={blogResponse.imagePath} alt={blogId}/>

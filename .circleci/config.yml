@@ -54,6 +54,9 @@ jobs:
       - run:
           name: Deploy to S3
           command: aws s3 cp ~/blog-client/build s3://jbasten-blog-website --recursive
+      - run:
+          name: Clear CloudFront Cache
+          command: aws cloudfront create-invalidate --distribution-id "E1LY17T55C1GNR" --paths "/*"
 
 workflows:
   version: 2
