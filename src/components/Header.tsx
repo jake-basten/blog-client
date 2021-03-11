@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
-import styled from 'styled-components';
-import {colors} from '../colors';
+import React, {FC} from "react";
+import styled from "styled-components";
+import {colors} from "../colors";
 
 const StyledHeader = styled.div`
   height: 88px;

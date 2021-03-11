@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
-import ReactMarkdown from 'react-markdown';
-import styled from 'styled-components';
+import React, {FC} from "react";
+import ReactMarkdown from "react-markdown";
+import styled from "styled-components";
 
 const StyledContent = styled.div`
   text-align: left

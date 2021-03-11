@@ -1,7 +1,7 @@
-import React, {FC} from 'react';
-import {Switch, Route, BrowserRouter as Router} from 'react-router-dom';
-import Blog from './Blog';
-import NotFound from './NotFound';
+import React, {FC} from "react";
+import {Switch, Route, BrowserRouter as Router} from "react-router-dom";
+import Blog from "./Blog";
+import NotFound from "./NotFound";
 
 const Routes: FC = () => {
   return (

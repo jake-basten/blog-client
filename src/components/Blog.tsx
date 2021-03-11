@@ -1,7 +1,7 @@
-import React, {useState, useEffect, FC} from 'react';
-import {useParams} from 'react-router-dom';
-import styled from 'styled-components';
-import BlogContent from './BlogConent';
+import React, {useState, useEffect, FC} from "react";
+import {useParams} from "react-router-dom";
+import styled from "styled-components";
+import BlogContent from "./BlogConent";
 
 const StyledBlog = styled.div`
   width: 80vw;
