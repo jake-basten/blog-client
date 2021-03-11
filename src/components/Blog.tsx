@@ -2,7 +2,7 @@ import React, {useState, useEffect, FC} from "react";
 import {useParams} from "react-router-dom";
 import styled from "styled-components";
 import BlogContent from "./BlogConent";
-import Loading from "./Loading";
+import LoadingContainer from "./LoadingContainer";
 
 const StyledBlog = styled.div`
   width: 80vw;
@@ -42,7 +42,8 @@ type BlogResponse = {
   fileContents?: string;
 }
 
-const hasBlogResponse = (blogResponse: BlogResponse) => blogResponse.imagePath && blogResponse.fileContents;
+const hasBlogResponse = (blogResponse: BlogResponse): boolean =>
+  blogResponse.imagePath !== undefined && blogResponse.fileContents !== undefined;
 
 const Blog: FC = () => {
   const [blogResponse, setBlogResponse] = useState<BlogResponse>({});
@@ -58,16 +59,15 @@ const Blog: FC = () => {
   
   return (
     <StyledBlog>
-      {hasBlogResponse(blogResponse) ?
-      <>
+      <LoadingContainer hasData={hasBlogResponse(blogResponse)}>
         <div className={'blog-title'}>
           Title Will Go Here
         </div>
         <div className={'blog-image'}>
           <img src={blogResponse.imagePath} alt={blogId}/>
         </div>
-        <BlogContent fileContents={blogResponse.fileContents}/>)
-      </>: <Loading/>}
+        <BlogContent fileContents={blogResponse.fileContents}/>
+      </LoadingContainer>
     </StyledBlog>
   );
 }
