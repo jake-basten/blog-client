@@ -2,6 +2,7 @@ import React, {useState, useEffect, FC} from "react";
 import {useParams} from "react-router-dom";
 import styled from "styled-components";
 import BlogContent from "./BlogConent";
+import Loading from "./Loading";
 
 const StyledBlog = styled.div`
   width: 80vw;
@@ -41,6 +42,8 @@ type BlogResponse = {
   fileContents?: string;
 }
 
+const hasBlogResponse = (blogResponse: BlogResponse) => blogResponse.imagePath && blogResponse.fileContents;
+
 const Blog: FC = () => {
   const [blogResponse, setBlogResponse] = useState<BlogResponse>({});
   const {blogId} = useParams<ParamTypes>();
@@ -55,13 +58,16 @@ const Blog: FC = () => {
   
   return (
     <StyledBlog>
-      <div className={'blog-title'}>
-        Title Will Go Here
-      </div>
-      <div className={'blog-image'}>
-        <img src={blogResponse.imagePath} alt={blogId}/>
-      </div>
-      <BlogContent fileContents={blogResponse.fileContents}/>
+      {hasBlogResponse(blogResponse) ?
+      <>
+        <div className={'blog-title'}>
+          Title Will Go Here
+        </div>
+        <div className={'blog-image'}>
+          <img src={blogResponse.imagePath} alt={blogId}/>
+        </div>
+        <BlogContent fileContents={blogResponse.fileContents}/>)
+      </>: <Loading/>}
     </StyledBlog>
   );
 }
