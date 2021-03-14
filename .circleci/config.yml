@@ -5,8 +5,8 @@ container_config: &container_config
   docker:
     - image: node:15.3.0
 
-dependencies: &dependencies
-  name: Install Dependencies
+install_aws_cli: &install_aws_cli
+  name: Install AWS CLI
   command: pip install awscli --upgrade
 
 jobs:
@@ -50,7 +50,7 @@ jobs:
       - attach_workspace:
           at: ~/blog-client
       - run:
-          <<: *dependencies
+          <<: *install_aws_cli
       - run:
           name: Deploy to S3
           command: aws s3 cp ~/blog-client/build s3://jbasten-blog-website --recursive
